@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "question",
-  template: "A question",
+  selector: 'question',
+  templateUrl: './question.component.html',
 })
 class QuestionComponent {
 
