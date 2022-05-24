@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: '<question></question>',
+  template: '<create-question></create-question>',
 })
 export class AppComponent {
   title = 'frontend';
