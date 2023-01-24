@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms'
@@ -9,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import CreateQuestionComponent from './components/question/create-question.component';
+import ApiService from './api.service';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import CreateQuestionComponent from './components/question/create-question.compo
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     MatButtonModule,
@@ -24,7 +27,7 @@ import CreateQuestionComponent from './components/question/create-question.compo
     MatInputModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
