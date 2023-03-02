@@ -1,22 +1,47 @@
 <mat-card>
-  <mat-card-title> Create a new question </mat-card-title>
+  <mat-card-title>Create a new question</mat-card-title>
 
   <mat-card-content>
-    <form>
-      <mat-form-field appearance="fill">
-        <mat-label>Write your question text here</mat-label>
-        <input [(ngModel)]="question.text" name="questionText" matInput />
-      </mat-form-field>
+    <form [formGroup]="formGroup">
+      <mat-vertical-stepper formArrayName="formArray" linear #stepper>
+        <mat-step formGroupName="0" [stepControl]="formArray.get([0])!">
+          <ng-template matStepLabel>Write your question text here</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Text</mat-label>
+            <input matInput name="questionText" formControlName="questionText" required />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step formGroupName="1" [stepControl]="formArray.get([1])!">
+          <ng-template matStepLabel>Correct answers</ng-template>
+          <mat-form-field formArrayName="correctAnswers" ng-repeat="correctAnswer in correctAnswers track by $index" appearance="fill" class="fullWidth">
+            <mat-label>Text</mat-label>
+            <input matInput name="correctAnswer" placeholder="Text" required />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step formGroupName="1" [stepControl]="formArray.get([1])!">
+          <ng-template matStepLabel>Wrong answers</ng-template>
+          <mat-form-field formArrayName="wrongAnswers" ng-repeat="wrongAnswer in wrongAnswers track by $index" appearance="fill" class="fullWidth">
+            <mat-label>Text</mat-label>
+            <input matInput name="wrongAnswer" placeholder="Text" required />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
     </form>
   </mat-card-content>
 
   <mat-card-actions>
     <button mat-button>Discard</button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="handleCreateQuestion(question)"
-    >
+    <button mat-raised-button color="primary" (click)="handleCreateQuestion(question)">
       Create
     </button>
   </mat-card-actions>
