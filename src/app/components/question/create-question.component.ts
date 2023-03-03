@@ -31,8 +31,16 @@ class CreateQuestionComponent implements OnInit {
     return this.formGroup.get("formArray") as FormArray;
   }
 
+  get questionText(): FormArray {
+    return this.formArray.get([0, "questionText"]) as FormArray;
+  }
+
   get correctAnswers(): FormArray {
-    return this.formGroup.controls["formArray"].get([0, "correctAnswers"]) as FormArray;
+    return this.formArray.get([1, "correctAnswers"]) as FormArray;
+  }
+
+  get wrongAnswers(): FormArray {
+    return this.formArray.get([1, "wrongAnswers"]) as FormArray;
   }
 
   addCorrectAnswer() {
@@ -46,9 +54,14 @@ class CreateQuestionComponent implements OnInit {
     this.correctAnswers.removeAt(answerIndex);
   }
 
-  handleCreateQuestion(question: CreateQuestionRequest) {
-    this._api.postQuestion(question);
-    console.log(`Question was sent.\nThe question: ${question.text}`);
+  handleSubmitForm() {
+    this.question = {
+      text: this.questionText.value,
+      correctAnswers: this.correctAnswers.value,
+      wrongAnswers: this.wrongAnswers.value,
+    }
+    this._api.postQuestion(this.question);
+    console.log(`Question was sent.\nThe question: ${this.question.text}`);
   }
 }
 
