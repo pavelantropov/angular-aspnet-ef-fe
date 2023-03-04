@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="basicForm">
   <form [formGroup]="formGroup" (ngSubmit)="handleSubmitForm()">
     <mat-card-title>Create a new question</mat-card-title>
 
@@ -6,7 +6,7 @@
         <mat-vertical-stepper formArrayName="formArray" linear #stepper>
           <mat-step formGroupName="0" [stepControl]="formArray.get([0])!">
             <ng-template matStepLabel>Write your question text here</ng-template>
-            <mat-form-field appearance="fill">
+            <mat-form-field class="fullWidth" appearance="fill">
               <mat-label>Text</mat-label>
               <input matInput name="questionText" formControlName="questionText" required />
             </mat-form-field>
@@ -16,9 +16,9 @@
           </mat-step>
           <mat-step formGroupName="1" [stepControl]="formArray.get([1])!">
             <ng-template matStepLabel>Correct answers</ng-template>
-            <div *ngFor="let correctAnswer of correctAnswers.controls; let i = index">
+            <div formArrayName="correctAnswers" *ngFor="let correctAnswer of correctAnswers.controls; let i = index">
               <button mat-button type="button" (click)="handleRemoveCorrectAnswer(i)">&#x2715;</button>
-              <mat-form-field formArrayName="correctAnswers" appearance="fill">
+              <mat-form-field class="fullWidth" appearance="fill">
                 <mat-label>Text</mat-label>
                 <input matInput name="correctAnswer" [formControlName]="i" required />
               </mat-form-field>
@@ -33,9 +33,9 @@
           </mat-step>
           <mat-step formGroupName="2" [stepControl]="formArray.get([2])!">
             <ng-template matStepLabel>Wrong answers</ng-template>
-            <div *ngFor="let wrongAnswer of wrongAnswers.controls; let i = index">
+            <div formArrayName="wrongAnswers" *ngFor="let wrongAnswer of wrongAnswers.controls; let i = index">
               <button mat-button type="button" (click)="handleRemoveWrongAnswer(i)">&#x2715;</button>
-              <mat-form-field formArrayName="wrongAnswers" appearance="fill">
+              <mat-form-field class="fullWidth" appearance="fill">
                 <mat-label>Text</mat-label>
                 <input matInput name="wrongAnswer" [formControlName]="i" required />
               </mat-form-field>

@@ -9,8 +9,14 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: grey;
 }
 
 .fullWidth {
   width: 100%
+}
+
+.basicForm {
+  margin: auto;
+  max-width: 1000px;
 }
