@@ -20,8 +20,8 @@ class CreateQuestionComponent implements OnInit {
           questionText: ['', Validators.required],
         }),
         this._formBuilder.group({
-          correctAnswers: this._formBuilder.array([]),
-          wrongAnswers: this._formBuilder.array([]),
+          correctAnswers: this._formBuilder.array([this._formBuilder.control('', Validators.required)]),
+          wrongAnswers: this._formBuilder.array([this._formBuilder.control('', Validators.required)]),
         }),
       ]),
     });
@@ -43,15 +43,22 @@ class CreateQuestionComponent implements OnInit {
     return this.formArray.get([1, "wrongAnswers"]) as FormArray;
   }
 
-  addCorrectAnswer() {
-    const form = this._formBuilder.group({
-      text: ['', Validators.required],
-    });
-    this.correctAnswers.push(form);
+  handleAddCorrectAnswer() {
+    const answer = this._formBuilder.control('', Validators.required);
+    this.correctAnswers.push(answer);
   }
 
-  deleteCorrectAnswer(answerIndex: number) {
-    this.correctAnswers.removeAt(answerIndex);
+  handleRemoveCorrectAnswer(index: number) {
+    this.correctAnswers.removeAt(index);
+  }
+
+  handleAddWrongAnswer() {
+    const answer = this._formBuilder.control('', Validators.required);
+    this.correctAnswers.push(answer);
+  }
+
+  handleRemoveWrongAnswer(index: number) {
+    this.correctAnswers.removeAt(index);
   }
 
   handleSubmitForm() {
@@ -61,7 +68,7 @@ class CreateQuestionComponent implements OnInit {
       wrongAnswers: this.wrongAnswers.value,
     }
     this._api.postQuestion(this.question);
-    console.log(`Question was sent.\nThe question: ${this.question.text}`);
+    console.log(`Question was sent.\n"${this.question.text}"`);
   }
 }
 

@@ -16,10 +16,16 @@
           </mat-step>
           <mat-step formGroupName="1" [stepControl]="formArray.get([1])!">
             <ng-template matStepLabel>Correct answers</ng-template>
-            <mat-form-field formArrayName="correctAnswers" ng-repeat="correctAnswer in correctAnswers track by $index" appearance="fill" class="fullWidth">
-              <mat-label>Text</mat-label>
-              <input matInput name="correctAnswer" placeholder="Text" required />
-            </mat-form-field>
+            <div *ngFor="let correctAnswer of correctAnswers.controls; let i = index">
+              <button mat-button type="button" (click)="handleRemoveCorrectAnswer(i)">&#x2715;</button>
+              <mat-form-field formArrayName="correctAnswers" appearance="fill">
+                <mat-label>Text</mat-label>
+                <input matInput name="correctAnswer" [formControlName]="i" required />
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-button type="button" (click)="handleAddCorrectAnswer()">+ add one more</button>
+            </div>
             <div>
               <button mat-button matStepperPrevious type="button">Back</button>
               <button mat-button matStepperNext type="button">Next</button>
@@ -27,10 +33,16 @@
           </mat-step>
           <mat-step formGroupName="1" [stepControl]="formArray.get([1])!">
             <ng-template matStepLabel>Wrong answers</ng-template>
-            <mat-form-field formArrayName="wrongAnswers" ng-repeat="wrongAnswer in wrongAnswers track by $index" appearance="fill" class="fullWidth">
-              <mat-label>Text</mat-label>
-              <input matInput name="wrongAnswer" placeholder="Text" required />
-            </mat-form-field>
+            <div *ngFor="let wrongAnswer of wrongAnswers.controls; let i = index">
+              <button mat-button type="button" (click)="handleRemoveWrongAnswer(i)">&#x2715;</button>
+              <mat-form-field formArrayName="wrongAnswers" appearance="fill">
+                <mat-label>Text</mat-label>
+                <input matInput name="wrongAnswer" [formControlName]="i" required />
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-button type="button" (click)="handleAddWrongAnswer()">+ add one more</button>
+            </div>
             <div>
               <button mat-button matStepperPrevious type="button">Back</button>
             </div>
@@ -40,7 +52,7 @@
 
     <mat-card-actions>
       <button mat-button>Discard</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <button mat-raised-button color="primary" type="submit" >
         Create
       </button>
     </mat-card-actions>
