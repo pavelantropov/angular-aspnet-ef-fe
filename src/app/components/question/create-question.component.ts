@@ -21,6 +21,8 @@ class CreateQuestionComponent implements OnInit {
         }),
         this._formBuilder.group({
           correctAnswers: this._formBuilder.array([this._formBuilder.control('', Validators.required)]),
+        }),
+        this._formBuilder.group({
           wrongAnswers: this._formBuilder.array([this._formBuilder.control('', Validators.required)]),
         }),
       ]),
@@ -40,7 +42,7 @@ class CreateQuestionComponent implements OnInit {
   }
 
   get wrongAnswers(): FormArray {
-    return this.formArray.get([1, "wrongAnswers"]) as FormArray;
+    return this.formArray.get([2, "wrongAnswers"]) as FormArray;
   }
 
   handleAddCorrectAnswer() {
@@ -54,11 +56,11 @@ class CreateQuestionComponent implements OnInit {
 
   handleAddWrongAnswer() {
     const answer = this._formBuilder.control('', Validators.required);
-    this.correctAnswers.push(answer);
+    this.wrongAnswers.push(answer);
   }
 
   handleRemoveWrongAnswer(index: number) {
-    this.correctAnswers.removeAt(index);
+    this.wrongAnswers.removeAt(index);
   }
 
   handleSubmitForm() {
