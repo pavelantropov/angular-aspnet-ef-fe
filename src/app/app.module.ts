@@ -7,19 +7,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatListModule } from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import CreateQuestionComponent from './components/question/create-question.component';
 import ApiService from './api.service';
+import QuestionsComponent from './components/question/questions.component';
+import CreateQuestionComponent from './components/question/create-question.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    QuestionsComponent,
     CreateQuestionComponent,
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -28,7 +32,7 @@ import ApiService from './api.service';
     MatCardModule,
     MatInputModule,
     MatStepperModule,
-    AppRoutingModule,
+    MatListModule,
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],
