@@ -7,6 +7,14 @@ import { CreateQuestionRequest } from './components/question/types';
 class ApiService {
   constructor(private http: HttpClient) {}
 
+  getQuestions() {
+    return this.http.get(`${environment.apiUrl}/questions`);
+  }
+
+  getQuestion(guid: string) {
+    return this.http.get(`${environment.apiUrl}/questions/${guid}`);
+  }
+
   postQuestion(question: CreateQuestionRequest) {
     this.http
       .post(`${environment.apiUrl}/questions`, question)
