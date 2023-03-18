@@ -3,7 +3,7 @@
 
   <mat-card-content>
     <mat-list *ngFor="let question of questions">
-      <mat-list-item>{{question.text}}</mat-list-item>
+      <mat-list-item (click)="select(question)">{{question.text}}</mat-list-item>
     </mat-list>
   </mat-card-content>
 

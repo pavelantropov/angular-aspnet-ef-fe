@@ -13,13 +13,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import ApiService from './api.service';
 import QuestionsComponent from './components/question/questions.component';
-import CreateQuestionComponent from './components/question/create-question.component';
+import QuestionFormComponent from './components/question/question-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuestionsComponent,
-    CreateQuestionComponent,
+    QuestionFormComponent,
   ],
   imports: [
     BrowserModule,

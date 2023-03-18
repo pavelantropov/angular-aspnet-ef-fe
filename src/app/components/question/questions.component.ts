@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import ApiService from 'src/app/api.service';
-import {  } from './types';
+import { Question } from './types';
 
 @Component({
   selector: 'questions',
@@ -19,6 +19,10 @@ class QuestionsComponent implements OnInit {
 
   getList() {
     this._api.getQuestions();
+  }
+
+  select(question: Question) {
+    this._api.selectQuestion(question);
   }
 }
 

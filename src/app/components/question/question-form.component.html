@@ -1,5 +1,5 @@
 <mat-card class="basicForm">
-  <form [formGroup]="formGroup" (ngSubmit)="handleSubmitForm()">
+  <form [formGroup]="questionFormGroup" (ngSubmit)="handleSubmitForm()">
     <mat-card-title>Create a new question</mat-card-title>
 
     <mat-card-content>
@@ -52,7 +52,7 @@
 
     <mat-card-actions>
       <button mat-button>Discard</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!questionFormGroup.valid">
         Create
       </button>
     </mat-card-actions>

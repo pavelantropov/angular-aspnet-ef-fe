@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import ApiService from 'src/app/api.service';
-import { CreateQuestionRequest } from './types';
+import { Question } from './types';
+import * as _ from 'lodash';
 
 @Component({
-  selector: 'create-question',
-  templateUrl: './create-question.component.html',
+  selector: 'question-form',
+  templateUrl: './question-form.component.html',
 })
-class CreateQuestionComponent implements OnInit {
-  question: CreateQuestionRequest = {};
-  formGroup: FormGroup;
+class QuestionFormComponent implements OnInit {
+  question: Question;
+  originalQuestion: Question;
+  questionFormGroup: FormGroup;
 
   constructor(private _api: ApiService, private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.formGroup = this._formBuilder.group({
+    this.questionFormGroup = this._formBuilder.group({
       formArray: this._formBuilder.array([
         this._formBuilder.group({
           questionText: ['', Validators.required],
@@ -27,14 +29,24 @@ class CreateQuestionComponent implements OnInit {
         }),
       ]),
     });
+
+    this._api.questionSelected.subscribe(question => this.question = question);
+  }
+
+  ngDoCheck() {
+    if (!_.isEqual(this.question, this.originalQuestion)) {
+      this.questionText.setValue(this.question?.text);
+      this.correctAnswers.setValue(this.question?.correctAnswers ?? []);
+      this.wrongAnswers.setValue(this.question?.wrongAnswers ?? []);
+    }
   }
 
   get formArray(): FormArray {
-    return this.formGroup.get("formArray") as FormArray;
+    return this.questionFormGroup.get("formArray") as FormArray;
   }
 
-  get questionText(): FormArray {
-    return this.formArray.get([0, "questionText"]) as FormArray;
+  get questionText(): FormControl {
+    return this.formArray.get([0, "questionText"]) as FormControl;
   }
 
   get correctAnswers(): FormArray {
@@ -64,14 +76,14 @@ class CreateQuestionComponent implements OnInit {
   }
 
   handleSubmitForm() {
-    this.question = {
+    const question = {
       text: this.questionText.value,
       correctAnswers: this.correctAnswers.value,
       wrongAnswers: this.wrongAnswers.value,
     }
-    this._api.postQuestion(this.question);
-    console.log(`Question was sent.\n"${this.question.text}"`);
+    this._api.postQuestion(question);
+    console.log(`Question was sent.\n"${question.text}"`);
   }
 }
 
-export default CreateQuestionComponent;
+export default QuestionFormComponent;
